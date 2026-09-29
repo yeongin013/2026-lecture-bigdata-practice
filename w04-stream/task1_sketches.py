@@ -13,7 +13,13 @@ approximating.
 
     python3 task1_sketches.py --verify
 """
-import argparse, random
+import argparse, hashlib, math, random, statistics
+
+# Flajolet-Martin's 2^R runs high - E[2^R] ~ n/PHI - so rules that keep the
+# scale of 2^R get multiplied by PHI. _FM_RULE names the rule actually used;
+# out/observation.md reports what every other rule gave on the same pass.
+_FM_BIAS = 0.77351
+_FM_RULE = "2^(mean R) x PHI"
 
 
 class BloomFilter:
@@ -28,21 +34,128 @@ class BloomFilter:
     """
 
     def __init__(self, m, k, seed=246):
-        raise NotImplementedError("write the Bloom filter")
+        if m <= 0 or k <= 0:
+            raise ValueError("m and k must both be positive")
+        self.m = m
+        self.k = k
+        self.seed = seed
+        self._key = str(seed).encode()
+        # m BITS, packed 8 to a byte. A bytearray(m) would be a bytearray of m
+        # BYTES - eight times the memory for the same filter - and claiming m
+        # bits while holding 8m is the thing Task 3 R3 forbids.
+        self.bits = bytearray((m + 7) // 8)
+        self.n_inserted = 0
+
+    def _positions(self, item):
+        """The k bit positions this item owns.
+
+        One digest per 16 positions, sliced into 4-byte words. The positions
+        depend only on the item, never on what is already in the filter - that
+        is what makes R1 structural rather than probabilistic.
+        """
+        raw = str(item).encode()
+        out, block = [], 0
+        while len(out) < self.k:
+            d = hashlib.blake2b(raw + b"#" + str(block).encode(),
+                                digest_size=64, key=self._key).digest()
+            for i in range(0, 64, 4):
+                out.append(int.from_bytes(d[i:i + 4], "big") % self.m)
+                if len(out) == self.k:
+                    break
+            block += 1
+        return out
 
     def add(self, item):
-        raise NotImplementedError
+        for i in self._positions(item):
+            self.bits[i >> 3] |= 1 << (i & 7)
+        self.n_inserted += 1
 
     def __contains__(self, item):
-        raise NotImplementedError
+        # R1: `add` only ever turns bits ON, and nothing ever turns one off, so
+        # every bit an inserted item set is still set. A "no" therefore cannot
+        # happen for something inserted - not rarely, never.
+        return all(self.bits[i >> 3] >> (i & 7) & 1
+                   for i in self._positions(item))
 
     def expected_fp_rate(self, n_inserted):
         """The textbook's predicted false-positive rate after n insertions.
 
         §4.4.2 derives it. Return the number, do not measure it - the harness
         measures separately and compares the two.
+
+        kn/m darts are thrown at m bits, so a given bit is still 0 with
+        probability (1 - 1/m)^(kn) ~ e^(-kn/m). A false positive needs all k of
+        an absent item's bits to be 1:
+
+            (1 - e^(-kn/m))^k
         """
-        raise NotImplementedError
+        return (1.0 - math.exp(-self.k * n_inserted / self.m)) ** self.k
+
+
+def _tails(stream, n_hashes, seed):
+    """One pass. Returns the longest run of trailing zeros seen by each of the
+    n_hashes independent estimators.
+
+    h_j(x) = (a_j * base(x) + b_j) mod 2^64 with a_j odd. Every estimator sees
+    every item, which is what §4.5 describes; the price is that per-item work is
+    O(n_hashes), and that is exactly the cost HyperLogLog removes. Task 2's
+    timings are what that price looks like.
+
+    low_mask[j] isolates the lowest tails[j]+1 bits. If any is set the item
+    cannot beat the record and the expensive path is skipped, so once tails[j]
+    has grown almost every item costs a single multiply. The high bits of the
+    product cannot affect the low bits, so this test does not need the mod 2^64.
+    """
+    if n_hashes <= 0:
+        raise ValueError("n_hashes must be positive")
+    MASK = (1 << 64) - 1
+    rng = random.Random(seed)
+    a = [rng.randrange(1, 1 << 64) | 1 for _ in range(n_hashes)]
+    b = [rng.randrange(1 << 64) for _ in range(n_hashes)]
+    tails = [0] * n_hashes
+    low_mask = [1] * n_hashes
+    seen = False
+    blake = hashlib.blake2b
+    for item in stream:
+        seen = True
+        base = int.from_bytes(blake(str(item).encode(), digest_size=8).digest(),
+                              "big")
+        for j in range(n_hashes):
+            if not (a[j] * base + b[j]) & low_mask[j]:
+                v = (a[j] * base + b[j]) & MASK
+                tz = 64 if v == 0 else (v & -v).bit_length() - 1
+                if tz > tails[j]:
+                    tails[j] = tz
+                    low_mask[j] = (1 << (tz + 1)) - 1
+    return tails if seen else None
+
+
+def _rules(tails):
+    """Every combining rule, from one pass's trailing-zero records.
+
+    The estimate 2^R is biased high: E[2^R] ~ n/PHI, so a rule that keeps the
+    scale of 2^R has to be multiplied by PHI to land on n. Rules that are
+    already medians of powers of two do not, and the numbers in
+    out/observation.md say which is which.
+    """
+    powers = [float(1 << r) for r in tails]
+    n_hashes = len(powers)
+    g = max(1, math.isqrt(n_hashes))          # 64 hashes -> 8 groups of 8
+    groups = [powers[i:i + g] for i in range(0, n_hashes, g)]
+    tail_groups = [tails[i:i + g] for i in range(0, n_hashes, g)]
+    return {
+        "mean of 2^R": sum(powers) / n_hashes,
+        "median of 2^R": statistics.median(powers),
+        "median of group means": statistics.median(
+            [sum(x) / len(x) for x in groups]),
+        "mean of group medians": statistics.mean(
+            [statistics.median(x) for x in groups]),
+        "2^(mean R)": float(2.0 ** statistics.mean(tails)),
+        "2^(mean R) x PHI": float(2.0 ** statistics.mean(tails)) * _FM_BIAS,
+        "median of group means x PHI": statistics.median(
+            [sum(x) / len(x) for x in groups]) * _FM_BIAS,
+        "harmonic mean of 2^R": n_hashes / sum(1.0 / x for x in powers),
+    }
 
 
 def flajolet_martin(stream, n_hashes=64, seed=246):
@@ -67,7 +180,17 @@ def flajolet_martin(stream, n_hashes=64, seed=246):
 
     Return your estimate as a float.
     """
-    raise NotImplementedError("write Flajolet-Martin")
+    tails = _tails(stream, n_hashes, seed)
+    if tails is None:
+        return 0.0
+    return _rules(tails)[_FM_RULE]
+
+
+def fm_all_rules(stream, n_hashes=64, seed=246):
+    """Every combining rule from one shared pass, so the numbers in
+    observation.md are strictly comparable. Returns {rule: estimate}."""
+    tails = _tails(stream, n_hashes, seed)
+    return {} if tails is None else _rules(tails)
 
 
 def reservoir_sample(stream, k, seed=246):
@@ -78,7 +201,24 @@ def reservoir_sample(stream, k, seed=246):
 
     Return a list of k items (or fewer if the stream was shorter).
     """
-    raise NotImplementedError("write reservoir sampling")
+    if k <= 0:
+        return []
+    rng = random.Random(seed)
+    keep = []
+    for i, item in enumerate(stream):
+        if i < k:
+            keep.append(item)            # the first k just fill the reservoir
+        else:
+            # The only place a length appears is `i + 1`, the number of items
+            # seen SO FAR. The total length n is never needed and never known:
+            # item i is kept with probability k/(i+1), and each later item has
+            # probability k/(i+1) of evicting a uniformly chosen incumbent, so
+            # after the stream ends every item stands at exactly k/n. The
+            # sample is valid if the stream stops at any point.
+            j = rng.randrange(i + 1)
+            if j < k:
+                keep[j] = item
+    return keep
 
 
 # ------------------------------------------------------------------- harness
