@@ -15,7 +15,7 @@ git fetch upstream          # 원본이 갱신되면 받아올 수 있다
 | 주차 | Task 1 구현 | Task 2 측정 | Task 3 개선 | 제출물 |
 |---|---|---|---|---|
 | w03-lsh | 완료 | 완료 | **strong** | `w03-lsh/out/` |
-| w04-stream | — | — | — | — |
+| w04-stream | 완료 | 완료 | **strong** | `w04-stream/out/` |
 | w05-pagerank | — | — | — | — |
 | w06-apriori | — | — | — | — |
 | w07-kmeans | — | — | — | — |
@@ -32,7 +32,7 @@ git fetch upstream          # 원본이 갱신되면 받아올 수 있다
 | 주차 | 태그 | 제출 주소 |
 |---|---|---|
 | w03-lsh | `w03-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w03-submit/w03-lsh |
-| w04-stream | `w04-submit` | 예정 |
+| w04-stream | `w04-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w04-submit/w04-stream |
 | w05-pagerank | `w05-submit` | 예정 |
 | w06-apriori | `w06-submit` | 예정 |
 | w07-kmeans | `w07-submit` | 예정 |
@@ -54,14 +54,15 @@ git push origin main wNN-submit
 | | |
 |---|---|
 | `w03-lsh/` | 제출 완료 |
+| `w04-stream/` | 제출 완료 |
 | 루트 공용 파일 | `README.md` `check.py` `Makefile` `Dockerfile` `requirements.txt` `.devcontainer/` — 주차별 파일이 아니고, 각 주차 README가 `python3 ../check.py wNN`을 실행하라고 하므로 남겨둔다 |
-| w02 · w04 · w05 · w06 · w07 | 아직 시작하지 않아 트리에서 제외 |
+| w02 · w05 · w06 · w07 | 아직 시작하지 않아 트리에서 제외 |
 
 빠진 주차의 원본은 지워진 것이 아니라 `upstream`에 그대로 있다. 시작할 때 가져온다:
 
 ```bash
 git fetch upstream
-git checkout upstream/main -- w04-stream
+git checkout upstream/main -- w05-pagerank
 ```
 
 ## 원본에서 바꾼 것
@@ -85,3 +86,22 @@ git checkout upstream/main -- w04-stream
 코퍼스의 반복 측정이고, 제공된 `task2_crossover.py`의 경로로 측정 가능한 최대 코퍼스는
 2,120개다. 자세한 건
 `w03-lsh/out/curve.md`에 적어뒀다.
+
+## w04 측정에서 알게 된 것
+
+**§4.5.3 을 문자 그대로 읽은 결합 규칙이 40회 중 30%만 2배 안에 들었다.** 그룹 안에서
+*평균*을 내기 때문이다 — 2^R 은 지수 분포라 8개짜리 그룹의 평균을 그 그룹의 최댓값이
+거의 결정하고, 그러면 그룹 평균 8개가 전부 위로 끌려가 중앙값을 취해도 살아나지 않는다.
+지수 R 을 먼저 평균한 뒤 지수화하는 쪽이 100%(중앙값 0.98)였고 그걸 썼다. 자세한 건
+`w04-stream/out/observation.md`.
+
+**베이스라인 `NaiveFilter` 는 선언한 메모리의 8배를 쓴다.** `bytearray(n_bits)` 는
+n_bits *바이트*(= 640,000비트)인데 `memory_bits()` 는 80,000 을 돌려준다. Task 3 의 R3 이
+"네 메모리를 전부 세라"고 못 박은 이유가 이것이고, 내 필터는 비트를 실제로 패킹해서
+`len(bits) * 8 = 80,000` 이 진짜 값이다.
+
+**A2 에 도달하기 위해 exact 만 따로 측정했다.** `flajolet_martin` 은 아이템당 63 µs 로
+n 에 선형이라 n = 102.4M 이면 약 1.8시간이다. 그건 exact 의 한계가 아니라 내 FM 구현의
+한계이고 A2 가 묻는 것은 exact 쪽이므로, 제공된 `task2_limits.exact_distinct()` 를 그대로
+호출해 exact 만 두 점 더 쟀다. `task2_limits.py` 는 수정하지 않았고, 그래서 그 두 줄은
+`limits.json` 에 없다 — `limits.md` 의 A2 절에 그렇게 적어뒀다.
