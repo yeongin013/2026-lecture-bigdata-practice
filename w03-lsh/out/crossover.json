@@ -1,0 +1,117 @@
+{
+  "runs": [
+    {
+      "n": 125,
+      "brute_s": 0.02154337498359382,
+      "brute_calls": 7750,
+      "brute_peak_bytes": 6576,
+      "lsh_s": 0.13069616700522602,
+      "lsh_calls": 0,
+      "lsh_peak_bytes": 943992
+    },
+    {
+      "n": 250,
+      "brute_s": 0.08604808314703405,
+      "brute_calls": 31125,
+      "brute_peak_bytes": 7304,
+      "lsh_s": 0.15228141704574227,
+      "lsh_calls": 1,
+      "lsh_peak_bytes": 1310840
+    },
+    {
+      "n": 300,
+      "brute_s": 0.12357033416628838,
+      "brute_calls": 44850,
+      "brute_peak_bytes": 7304,
+      "lsh_s": 0.16072154184803367,
+      "lsh_calls": 2,
+      "lsh_peak_bytes": 1451624
+    },
+    {
+      "n": 350,
+      "brute_s": 0.16841045813634992,
+      "brute_calls": 61075,
+      "brute_peak_bytes": 7304,
+      "lsh_s": 0.17003954201936722,
+      "lsh_calls": 2,
+      "lsh_peak_bytes": 1578072
+    },
+    {
+      "n": 400,
+      "brute_s": 0.2197290000040084,
+      "brute_calls": 79800,
+      "brute_peak_bytes": 7304,
+      "lsh_s": 0.17867254093289375,
+      "lsh_calls": 3,
+      "lsh_peak_bytes": 1705256
+    },
+    {
+      "n": 450,
+      "brute_s": 0.2788319999817759,
+      "brute_calls": 101025,
+      "brute_peak_bytes": 7304,
+      "lsh_s": 0.1886589580681175,
+      "lsh_calls": 4,
+      "lsh_peak_bytes": 1828728
+    },
+    {
+      "n": 500,
+      "brute_s": 0.34335058298893273,
+      "brute_calls": 124750,
+      "brute_peak_bytes": 7816,
+      "lsh_s": 0.19758808286860585,
+      "lsh_calls": 7,
+      "lsh_peak_bytes": 1950248
+    },
+    {
+      "n": 1000,
+      "brute_s": 1.3798703339416534,
+      "brute_calls": 499500,
+      "brute_peak_bytes": 9352,
+      "lsh_s": 0.28540924983099103,
+      "lsh_calls": 28,
+      "lsh_peak_bytes": 3021480
+    },
+    {
+      "n": 2000,
+      "brute_s": 5.589453250169754,
+      "brute_calls": 1999000,
+      "brute_peak_bytes": 18184,
+      "lsh_s": 0.46552345785312355,
+      "lsh_calls": 108,
+      "lsh_peak_bytes": 4817960
+    },
+    {
+      "n": 4000,
+      "brute_s": 6.293461750028655,
+      "brute_calls": 2246140,
+      "brute_peak_bytes": 19112,
+      "lsh_s": 0.48322887485846877,
+      "lsh_calls": 124,
+      "lsh_peak_bytes": 5019464
+    },
+    {
+      "n": 8000,
+      "brute_s": 6.283904375042766,
+      "brute_calls": 2246140,
+      "brute_peak_bytes": 19112,
+      "lsh_s": 0.4922307920642197,
+      "lsh_calls": 124,
+      "lsh_peak_bytes": 5019408
+    },
+    {
+      "n": 16000,
+      "brute_s": 6.564248458947986,
+      "brute_calls": 2246140,
+      "brute_peak_bytes": 19112,
+      "lsh_s": 0.5261140409857035,
+      "lsh_calls": 124,
+      "lsh_peak_bytes": 5019464
+    }
+  ],
+  "machine": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "python": "3.14.0"
+  }
+}

@@ -30,7 +30,11 @@ BOOK_HASHES = [lambda r: (r + 1) % 5, lambda r: (3 * r + 1) % 5]
 
 def jaccard(a, b):
     """|a and b| / |a or b|. Empty union is 0, not an error."""
-    raise NotImplementedError("jaccard similarity")
+    a, b = set(a), set(b)
+    union = len(a | b)
+    if not union:          # two empty sets have no similarity to speak of,
+        return 0.0         # and 0/0 is not a number. R1 says 0, not an error.
+    return len(a & b) / union
 
 
 def minhash_signatures(columns, hashes, n_rows):
@@ -47,8 +51,32 @@ def minhash_signatures(columns, hashes, n_rows):
     Doing it that way is the point. If you sort or re-scan per column you have
     written something correct that does not survive a dataset that does not fit
     in memory, and not fitting in memory is what this course is about.
+
+    A column with no 1 in it keeps `inf`, the way the book leaves it.
     """
-    raise NotImplementedError("signature matrix")
+    inf = float("inf")
+    n_cols, n_hashes = len(columns), len(hashes)
+    sig = [[inf] * n_hashes for _ in range(n_cols)]
+
+    # The row-wise view of the matrix: which columns hold a 1 in row r.
+    # Building it is one sweep of the input, not one sweep per column, and it
+    # is the order the data actually arrives in when the matrix is too big to
+    # hold - a row can be read, used, and thrown away before the next one.
+    rows = [[] for _ in range(n_rows)]
+    for c, col in enumerate(columns):
+        for r in col:
+            if not 0 <= r < n_rows:
+                raise ValueError(f"row {r} is outside 0..{n_rows - 1}")
+            rows[r].append(c)
+
+    for r in range(n_rows):                 # each row exactly once
+        hv = [h(r) for h in hashes]         # hash the row number once per row,
+        for c in rows[r]:                   # not once per column that holds it
+            s = sig[c]
+            for i in range(n_hashes):
+                if hv[i] < s[i]:
+                    s[i] = hv[i]
+    return sig
 
 
 def lsh_candidates(signatures, bands):
@@ -57,10 +85,48 @@ def lsh_candidates(signatures, bands):
     Two columns are candidates if they land in the same bucket for **at least
     one** band. Return {(i, j), ...} with i < j.
 
-    The signature length must divide evenly by `bands`, or you have to decide
-    what to do with the remainder. Say what you decided.
+    R5 - what happens when `bands` does not divide the signature length:
+    the rows are split **as evenly as possible** instead. With n rows and b
+    bands, the first `n % b` bands get one extra row and the rest get `n // b`.
+
+    The two alternatives are worse. Dropping the leftover rows throws away
+    signature you already paid to compute, for nothing. Piling every leftover
+    onto one band makes that band much taller than the others, and a taller
+    band collides far less often, so it quietly contributes almost no recall
+    while still costing a full pass. Splitting evenly keeps every band within
+    one row of every other, which is also what keeps the S-curve of §3.4.2 -
+    written for a single r - a fair description of what the code does.
+
+    `bands` larger than the signature length is clamped: a band with no rows
+    would put every column in the same bucket and make every pair a candidate.
     """
-    raise NotImplementedError("LSH candidate pairs")
+    if not signatures or bands <= 0:
+        return set()
+    n_rows = len(signatures[0])
+    if n_rows == 0:
+        return set()
+    bands = min(bands, n_rows)
+
+    base, extra = divmod(n_rows, bands)     # R5: spread the remainder
+    spans, start = [], 0
+    for b in range(bands):
+        width = base + (1 if b < extra else 0)
+        spans.append((start, start + width))
+        start += width
+
+    candidates = set()
+    for lo, hi in spans:
+        buckets = {}
+        for c, sig in enumerate(signatures):
+            buckets.setdefault(tuple(sig[lo:hi]), []).append(c)
+        for members in buckets.values():
+            if len(members) < 2:
+                continue                    # a bucket of one collides with nobody
+            for x in range(len(members)):
+                for y in range(x + 1, len(members)):
+                    i, j = members[x], members[y]
+                    candidates.add((i, j) if i < j else (j, i))
+    return candidates
 
 
 # ------------------------------------------------------------------- harness
