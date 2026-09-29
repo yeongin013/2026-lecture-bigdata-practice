@@ -46,10 +46,29 @@ git tag -a wNN-submit -m "wNN 제출"
 git push origin main wNN-submit
 ```
 
+## 트리에 무엇이 있나
+
+트리에는 **제출한 주차와 공용 파일만** 둔다. 아직 시작하지 않은 주차는 커밋하지 않는다 —
+채워지지 않은 스텁이 트리에 있으면 제출물과 구분이 안 되기 때문이다.
+
+| | |
+|---|---|
+| `w03-lsh/` | 제출 완료 |
+| 루트 공용 파일 | `README.md` `check.py` `Makefile` `Dockerfile` `requirements.txt` `.devcontainer/` — 주차별 파일이 아니고, 각 주차 README가 `python3 ../check.py wNN`을 실행하라고 하므로 남겨둔다 |
+| w02 · w04 · w05 · w06 · w07 | 아직 시작하지 않아 트리에서 제외 |
+
+빠진 주차의 원본은 지워진 것이 아니라 `upstream`에 그대로 있다. 시작할 때 가져온다:
+
+```bash
+git fetch upstream
+git checkout upstream/main -- w04-stream
+```
+
 ## 원본에서 바꾼 것
 
 교수님이 준 파일 중 **채워 넣으라고 되어 있는 곳**(각 주차 `task*.py`의 스텁) 외에
-손댄 것은 `.gitignore` 하나뿐이다.
+내용을 손댄 것은 `.gitignore` 하나뿐이다. 그 외에는 아직 시작하지 않은 주차 폴더를
+트리에서 뺀 것뿐이고, 그 파일들의 내용은 바꾸지 않았다.
 
 **`.gitignore` — `*/out/` 무시 규칙 삭제**
 
@@ -63,5 +82,6 @@ git push origin main wNN-submit
 `task2.md`는 `--sizes 4000,8000,16000`까지 밀어보라고 하는데, 세 사이즈 모두 에러 없이
 실행되지만 비교 횟수가 전부 2,246,140으로 같다. `bench.build()`가 2,120개 문서를 고정으로
 돌려주므로 `bench.build()[:n]`은 n > 2,120에서 아무것도 자르지 않는다. 즉 그 구간은 같은
-코퍼스의 반복 측정이고, 실제로 측정 가능한 최대 코퍼스는 2,120개다. 자세한 건
+코퍼스의 반복 측정이고, 제공된 `task2_crossover.py`의 경로로 측정 가능한 최대 코퍼스는
+2,120개다. 자세한 건
 `w03-lsh/out/curve.md`에 적어뒀다.
