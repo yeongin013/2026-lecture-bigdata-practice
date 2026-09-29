@@ -1,0 +1,40 @@
+{
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "python": "3.14.0"
+  },
+  "corpus": "bench.build() + bench.build(1) + bench.build(2) + ..., first n documents",
+  "runs": [
+    {
+      "n": 4000,
+      "extra_seeds": 1,
+      "brute_s": 24.642941584002983,
+      "brute_calls": 7998000,
+      "brute_peak_bytes": 36136,
+      "lsh_s": 0.8828934999983176,
+      "lsh_calls": 228,
+      "lsh_peak_bytes": 8318632
+    },
+    {
+      "n": 6500,
+      "extra_seeds": 3,
+      "brute_s": 66.10450691600272,
+      "brute_calls": 21121750,
+      "brute_peak_bytes": 59176,
+      "lsh_s": 1.377041374995315,
+      "lsh_calls": 385,
+      "lsh_peak_bytes": 12510536
+    },
+    {
+      "n": 8000,
+      "extra_seeds": 3,
+      "brute_s": 101.57330737499433,
+      "brute_calls": 31996000,
+      "brute_peak_bytes": 63272,
+      "lsh_s": 1.721616417002224,
+      "lsh_calls": 459,
+      "lsh_peak_bytes": 15010024
+    }
+  ]
+}

@@ -59,9 +59,12 @@ def minhash_signatures(columns, hashes, n_rows):
     sig = [[inf] * n_hashes for _ in range(n_cols)]
 
     # The row-wise view of the matrix: which columns hold a 1 in row r.
-    # Building it is one sweep of the input, not one sweep per column, and it
-    # is the order the data actually arrives in when the matrix is too big to
-    # hold - a row can be read, used, and thrown away before the next one.
+    # Building it is one sweep of the input, not one sweep per column. The
+    # signature loop below then needs only one row at a time - which is what
+    # lets it run on a matrix that arrives row by row and is too big to hold.
+    # This function is handed columns, though, so here the whole transposed
+    # matrix is built in memory first; with row-ordered input `rows` would not
+    # need to exist.
     rows = [[] for _ in range(n_rows)]
     for c, col in enumerate(columns):
         for r in col:

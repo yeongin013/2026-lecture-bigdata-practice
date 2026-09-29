@@ -78,14 +78,21 @@ git checkout upstream/main -- w05-pagerank
 
 수정 금지 파일인 `bench.py`, 그리고 실행만 하면 되는 `task2_crossover.py`는 **원본 그대로다.**
 
+새로 추가한 파일은 `w03-lsh/task2_extend.py` 하나다. 제공 파일을 고치지 않고 A2를 재기 위한
+것이다(아래).
+
 ## w03 측정에서 알게 된 것
 
 `task2.md`는 `--sizes 4000,8000,16000`까지 밀어보라고 하는데, 세 사이즈 모두 에러 없이
 실행되지만 비교 횟수가 전부 2,246,140으로 같다. `bench.build()`가 2,120개 문서를 고정으로
 돌려주므로 `bench.build()[:n]`은 n > 2,120에서 아무것도 자르지 않는다. 즉 그 구간은 같은
-코퍼스의 반복 측정이고, 제공된 `task2_crossover.py`의 경로로 측정 가능한 최대 코퍼스는
-2,120개다. 자세한 건
-`w03-lsh/out/curve.md`에 적어뒀다.
+코퍼스의 반복 측정이다.
+
+그 너머는 `task2_extend.py`로 쟀다. `bench.build()` 뒤에 `bench.build(1)`, `bench.build(2)`, …를
+이어 붙이고, 제공된 `task2_crossover.timed()`와 같은 `BruteForce`·`YourFinder`로 측정한다.
+결과는 `w03-lsh/out/crossover_ext.json`에 따로 두어 `crossover.json`은 원본 스크립트의 출력만
+담는다. brute force는 **n = 6,500에서 66.10초**로 1분을 넘었고, 그때 메모리는 59.2 KB였다 —
+먼저 바닥난 건 시간이다. 자세한 건 `w03-lsh/out/curve.md`의 A2 절.
 
 ## w04 측정에서 알게 된 것
 
