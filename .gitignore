@@ -1,5 +1,4 @@
-# student output
-*/out/
+# 제출 레포이므로 out/ 은 추적한다 (원본 레포에서는 */out/ 이 무시 대상이었다)
 
 # python
 __pycache__/
@@ -8,3 +7,4 @@ __pycache__/
 .ipynb_checkpoints/
 
 .DS_Store
+.Rhistory
