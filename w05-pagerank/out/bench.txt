@@ -1,0 +1,12 @@
+$ python3 bench.py --yours
+
+  1,200 nodes, 5,877 edges, density 0.4081%
+
+  baseline      0.32s   floats held    1,440,000   sum 1.000000
+  yours         0.00s   floats held        2,403   sum 1.000000   worst diff 1.18e-15
+
+   ok    ranks match to 1e-9
+     81.0x faster     599.3x less memory
+
+   -> strong
+

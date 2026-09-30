@@ -16,12 +16,12 @@ git fetch upstream          # 원본이 갱신되면 받아올 수 있다
 |---|---|---|---|---|
 | w03-lsh | 완료 | 완료 | **strong** | `w03-lsh/out/` |
 | w04-stream | 완료 | 완료 | **strong** | `w04-stream/out/` |
-| w05-pagerank | — | — | — | — |
+| w05-pagerank | 완료 | 완료 | **strong** | `w05-pagerank/out/` |
 | w06-apriori | — | — | — | — |
 | w07-kmeans | — | — | — | — |
 
-선택 과제(w02, w05 task4, w06 task4)는 Spark이 필요하다. 이 노트북의 JDK는 23이라
-그대로는 안 돌아가고, `make image` → `make shell`(Ubuntu 24.04 + JDK 17 + PySpark)로
+선택 과제(w02, w05 task4, w06 task4)는 Spark이 필요하다. 채점 대상이 아니라 진행하지 않았다.
+이 노트북의 JDK는 23이라 그대로는 안 돌아가고, `make image` → `make shell`(Ubuntu 24.04 + JDK 17 + PySpark)로
 컨테이너 안에서 돌려야 한다.
 
 ## 제출 주소
@@ -33,7 +33,7 @@ git fetch upstream          # 원본이 갱신되면 받아올 수 있다
 |---|---|---|
 | w03-lsh | `w03-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w03-submit/w03-lsh |
 | w04-stream | `w04-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w04-submit/w04-stream |
-| w05-pagerank | `w05-submit` | 예정 |
+| w05-pagerank | `w05-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w05-submit/w05-pagerank |
 | w06-apriori | `w06-submit` | 예정 |
 | w07-kmeans | `w07-submit` | 예정 |
 
@@ -55,14 +55,15 @@ git push origin main wNN-submit
 |---|---|
 | `w03-lsh/` | 제출 완료 |
 | `w04-stream/` | 제출 완료 |
+| `w05-pagerank/` | 제출 완료 (선택 과제 Task 4 파일은 원본 그대로 포함) |
 | 루트 공용 파일 | `README.md` `check.py` `Makefile` `Dockerfile` `requirements.txt` `.devcontainer/` — 주차별 파일이 아니고, 각 주차 README가 `python3 ../check.py wNN`을 실행하라고 하므로 남겨둔다 |
-| w02 · w05 · w06 · w07 | 아직 시작하지 않아 트리에서 제외 |
+| w02 · w06 · w07 | 아직 시작하지 않아 트리에서 제외 |
 
 빠진 주차의 원본은 지워진 것이 아니라 `upstream`에 그대로 있다. 시작할 때 가져온다:
 
 ```bash
 git fetch upstream
-git checkout upstream/main -- w05-pagerank
+git checkout upstream/main -- w06-apriori
 ```
 
 ## 원본에서 바꾼 것
@@ -78,13 +79,14 @@ git checkout upstream/main -- w05-pagerank
 
 수정 금지 파일인 `bench.py`, 그리고 실행만 하면 되는 `task2_crossover.py`는 **원본 그대로다.**
 
-새로 추가한 스크립트는 셋이고, 모두 제공 파일을 고치지 않고 추가 측정을 재현하기 위한 것이다.
+새로 추가한 스크립트는 넷이고, 모두 제공 파일을 고치지 않고 추가 측정을 재현하기 위한 것이다.
 
 | 파일 | 원자료 | 용도 |
 |---|---|---|
 | `w03-lsh/task2_extend.py` | `w03-lsh/out/crossover_ext.json` | 2,120개 천장 너머의 A2 |
 | `w04-stream/task1_fm_rules.py` | `w04-stream/out/fm_rules.json` | FM 결합 규칙 40회 비교 |
 | `w04-stream/task2_exact_only.py` | `w04-stream/out/limits_exact_only.json` | FM 없이 exact 만 잰 A2 두 점 |
+| `w05-pagerank/task2_why.py` | `w05-pagerank/out/convergence_why.json` | 수렴이 βᵏ 보다 빠른 이유 (실제 수렴 속도) |
 
 커밋 기록 한 가지: `1477b98` 은 메시지가 ".gitignore" 뿐이지만, 실제로는 `w04-stream/` 의 원본
 파일 9개를 upstream 에서 복원한 것도 함께 들어갔다. 복원된 내용은 upstream 과 바이트 단위로 같다.
@@ -120,3 +122,10 @@ n 에 선형이라 n = 102.4M 이면 약 1.8시간이다. 그건 exact 의 한�
 한계이고 A2 가 묻는 것은 exact 쪽이므로, 제공된 `task2_limits.exact_distinct()` 를 그대로
 호출해 exact 만 두 점 더 쟀다(`task2_exact_only.py`, 원자료 `out/limits_exact_only.json`).
 `task2_limits.py` 는 수정하지 않았고, 그래서 그 두 줄은 `limits.json` 에 없다.
+
+## w05 측정에서 알게 된 것
+
+**β = 0.99 에서도 24회만에 수렴했다.** 교과서의 βᵏ 로는 2,291회가 필요하다고 예측했는데 틀렸다.
+5,000회 돌린 답과의 차이가 2e-11 이하라 가짜 수렴도 아니다. 연속 변화량의 비로 잰 실제 수렴
+속도는 다섯 β 모두에서 β × 0.27 이었다 — βᵏ 는 상한이고, 이 그래프는 링크 구조가 빨리 섞여서
+β 의 영향이 로그로만 들어온다. 재현은 `w05-pagerank/task2_why.py`.
