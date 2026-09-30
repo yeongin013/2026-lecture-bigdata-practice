@@ -101,8 +101,11 @@ git checkout upstream/main -- w06-apriori
 그 너머는 `task2_extend.py`로 쟀다. `bench.build()` 뒤에 `bench.build(1)`, `bench.build(2)`, …를
 이어 붙이고, 제공된 `task2_crossover.timed()`와 같은 `BruteForce`·`YourFinder`로 측정한다.
 결과는 `w03-lsh/out/crossover_ext.json`에 따로 두어 `crossover.json`은 원본 스크립트의 출력만
-담는다. brute force는 **n = 6,500에서 66.10초**로 1분을 넘었고, 그때 메모리는 59.2 KB였다 —
+담는다. brute force는 **n = 6,500에서 62.26초**로 1분을 넘었고, 그때 메모리는 59.2 KB였다 —
 먼저 바닥난 건 시간이다. 자세한 건 `w03-lsh/out/curve.md`의 A2 절.
+
+w03의 측정(`crossover.json`, `crossover_ext.json`, `bench.txt`)은 2026-09-30 에 전부 한 세션에서
+다시 돌린 결과다. 비교 횟수·recall은 이전과 같았고, 문서의 수치는 이 측정에 맞췄다.
 
 ## w04 측정에서 알게 된 것
 

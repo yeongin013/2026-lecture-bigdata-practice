@@ -9,30 +9,30 @@
     {
       "n": 4000,
       "extra_seeds": 1,
-      "brute_s": 24.642941584002983,
+      "brute_s": 23.69302812499518,
       "brute_calls": 7998000,
       "brute_peak_bytes": 36136,
-      "lsh_s": 0.8828934999983176,
+      "lsh_s": 0.8536843749898253,
       "lsh_calls": 228,
       "lsh_peak_bytes": 8318632
     },
     {
       "n": 6500,
       "extra_seeds": 3,
-      "brute_s": 66.10450691600272,
+      "brute_s": 62.25755437499902,
       "brute_calls": 21121750,
       "brute_peak_bytes": 59176,
-      "lsh_s": 1.377041374995315,
+      "lsh_s": 1.3686545829987153,
       "lsh_calls": 385,
       "lsh_peak_bytes": 12510536
     },
     {
       "n": 8000,
       "extra_seeds": 3,
-      "brute_s": 101.57330737499433,
+      "brute_s": 98.49238870800764,
       "brute_calls": 31996000,
       "brute_peak_bytes": 63272,
-      "lsh_s": 1.721616417002224,
+      "lsh_s": 1.6647703329945216,
       "lsh_calls": 459,
       "lsh_peak_bytes": 15010024
     }
