@@ -15,9 +15,9 @@ approximating.
 """
 import argparse, hashlib, math, random, statistics
 
-# Flajolet-Martin's 2^R runs high - E[2^R] ~ n/PHI - so rules that keep the
-# scale of 2^R get multiplied by PHI. _FM_RULE names the rule actually used;
-# out/observation.md reports what every other rule gave on the same pass.
+# Flajolet-Martin's 2^R runs high - 2^E[R] ~ n/PHI - so a rule that averages R
+# and exponentiates gets multiplied by PHI. _FM_RULE names the rule actually
+# used; task1_fm_rules.py measures every rule (out/fm_rules.json).
 _FM_BIAS = 0.77351
 _FM_RULE = "2^(mean R) x PHI"
 
@@ -133,10 +133,10 @@ def _tails(stream, n_hashes, seed):
 def _rules(tails):
     """Every combining rule, from one pass's trailing-zero records.
 
-    The estimate 2^R is biased high: E[2^R] ~ n/PHI, so a rule that keeps the
-    scale of 2^R has to be multiplied by PHI to land on n. Rules that are
-    already medians of powers of two do not, and the numbers in
-    out/observation.md say which is which.
+    The estimate 2^R is biased high: 2^E[R] ~ n/PHI, so a rule built on the
+    mean of R has to be multiplied by PHI to land on n. The mean of 2^R itself
+    is far higher still, because 2^R has a heavy upper tail. Which rules land
+    where is measured, not assumed: see task1_fm_rules.py.
     """
     powers = [float(1 << r) for r in tails]
     n_hashes = len(powers)
@@ -211,10 +211,11 @@ def reservoir_sample(stream, k, seed=246):
         else:
             # The only place a length appears is `i + 1`, the number of items
             # seen SO FAR. The total length n is never needed and never known:
-            # item i is kept with probability k/(i+1), and each later item has
-            # probability k/(i+1) of evicting a uniformly chosen incumbent, so
-            # after the stream ends every item stands at exactly k/n. The
-            # sample is valid if the stream stops at any point.
+            # item i enters with probability k/(i+1); a later item j enters
+            # with probability k/(j+1) and then evicts one of the k incumbents
+            # uniformly, so a given incumbent survives step j with probability
+            # 1 - 1/(j+1). The product telescopes to exactly k/n for every
+            # item, for whatever n the stream happens to stop at.
             j = rng.randrange(i + 1)
             if j < k:
                 keep[j] = item

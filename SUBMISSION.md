@@ -78,8 +78,16 @@ git checkout upstream/main -- w05-pagerank
 
 수정 금지 파일인 `bench.py`, 그리고 실행만 하면 되는 `task2_crossover.py`는 **원본 그대로다.**
 
-새로 추가한 파일은 `w03-lsh/task2_extend.py` 하나다. 제공 파일을 고치지 않고 A2를 재기 위한
-것이다(아래).
+새로 추가한 스크립트는 셋이고, 모두 제공 파일을 고치지 않고 추가 측정을 재현하기 위한 것이다.
+
+| 파일 | 원자료 | 용도 |
+|---|---|---|
+| `w03-lsh/task2_extend.py` | `w03-lsh/out/crossover_ext.json` | 2,120개 천장 너머의 A2 |
+| `w04-stream/task1_fm_rules.py` | `w04-stream/out/fm_rules.json` | FM 결합 규칙 40회 비교 |
+| `w04-stream/task2_exact_only.py` | `w04-stream/out/limits_exact_only.json` | FM 없이 exact 만 잰 A2 두 점 |
+
+커밋 기록 한 가지: `1477b98` 은 메시지가 ".gitignore" 뿐이지만, 실제로는 `w04-stream/` 의 원본
+파일 9개를 upstream 에서 복원한 것도 함께 들어갔다. 복원된 내용은 upstream 과 바이트 단위로 같다.
 
 ## w03 측정에서 알게 된 것
 
@@ -99,8 +107,8 @@ git checkout upstream/main -- w05-pagerank
 **§4.5.3 을 문자 그대로 읽은 결합 규칙이 40회 중 30%만 2배 안에 들었다.** 그룹 안에서
 *평균*을 내기 때문이다 — 2^R 은 지수 분포라 8개짜리 그룹의 평균을 그 그룹의 최댓값이
 거의 결정하고, 그러면 그룹 평균 8개가 전부 위로 끌려가 중앙값을 취해도 살아나지 않는다.
-지수 R 을 먼저 평균한 뒤 지수화하는 쪽이 100%(중앙값 0.98)였고 그걸 썼다. 자세한 건
-`w04-stream/out/observation.md`.
+지수 R 을 먼저 평균한 뒤 지수화하는 쪽이 100%(중앙값 0.98)였고 그걸 썼다. 재현은
+`task1_fm_rules.py`, 자세한 건 `w04-stream/out/observation.md`.
 
 **베이스라인 `NaiveFilter` 는 선언한 메모리의 8배를 쓴다.** `bytearray(n_bits)` 는
 n_bits *바이트*(= 640,000비트)인데 `memory_bits()` 는 80,000 을 돌려준다. Task 3 의 R3 이
@@ -110,5 +118,5 @@ n_bits *바이트*(= 640,000비트)인데 `memory_bits()` 는 80,000 을 돌려�
 **A2 에 도달하기 위해 exact 만 따로 측정했다.** `flajolet_martin` 은 아이템당 63 µs 로
 n 에 선형이라 n = 102.4M 이면 약 1.8시간이다. 그건 exact 의 한계가 아니라 내 FM 구현의
 한계이고 A2 가 묻는 것은 exact 쪽이므로, 제공된 `task2_limits.exact_distinct()` 를 그대로
-호출해 exact 만 두 점 더 쟀다. `task2_limits.py` 는 수정하지 않았고, 그래서 그 두 줄은
-`limits.json` 에 없다 — `limits.md` 의 A2 절에 그렇게 적어뒀다.
+호출해 exact 만 두 점 더 쟀다(`task2_exact_only.py`, 원자료 `out/limits_exact_only.json`).
+`task2_limits.py` 는 수정하지 않았고, 그래서 그 두 줄은 `limits.json` 에 없다.

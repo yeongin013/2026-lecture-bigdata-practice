@@ -1,0 +1,21 @@
+{
+  "machine": {
+    "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "python": "3.14.0"
+  },
+  "runs": [
+    {
+      "n": 51200000,
+      "true_distinct": 18799271,
+      "exact_s": 44.0230702500121,
+      "exact_peak_bytes": 1523126597
+    },
+    {
+      "n": 102400000,
+      "true_distinct": 37596727,
+      "exact_s": 90.79716316600388,
+      "exact_peak_bytes": 3056173138
+    }
+  ]
+}

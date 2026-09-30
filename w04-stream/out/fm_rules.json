@@ -1,0 +1,719 @@
+{
+ "cases": [
+  [
+   1000,
+   [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ]
+  ],
+  [
+   20000,
+   [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+   ]
+  ],
+  [
+   100000,
+   [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ]
+  ]
+ ],
+ "summary": {
+  "mean of 2^R": {
+   "trials": 40,
+   "min": 1.7006379501238995,
+   "median": 4.2466618954084865,
+   "max": 38.05744680851064,
+   "within_2x": 0.05
+  },
+  "median of 2^R": {
+   "trials": 40,
+   "min": 0.6900923478682068,
+   "median": 1.0893617021276596,
+   "max": 1.7276322033004692,
+   "within_2x": 1.0
+  },
+  "median of group means": {
+   "trials": 40,
+   "min": 1.3497126588284916,
+   "median": 2.548849793987093,
+   "max": 6.708071914377603,
+   "within_2x": 0.3
+  },
+  "mean of group medians": {
+   "trials": 40,
+   "min": 0.7558390889439552,
+   "median": 1.251063829787234,
+   "max": 2.372192445796961,
+   "within_2x": 0.95
+  },
+  "2^(mean R)": {
+   "trials": 40,
+   "min": 0.8827312112378893,
+   "median": 1.2677172929662122,
+   "max": 2.1988304154151823,
+   "within_2x": 0.975
+  },
+  "2^(mean R) x PHI": {
+   "trials": 40,
+   "min": 0.6828014192046198,
+   "median": 0.9805920032822947,
+   "max": 1.7008173146277976,
+   "within_2x": 1.0
+  },
+  "median of group means x PHI": {
+   "trials": 40,
+   "min": 1.0440162387304266,
+   "median": 1.9715608041469563,
+   "max": 5.18876070649022,
+   "within_2x": 0.5
+  },
+  "harmonic mean of 2^R": {
+   "trials": 40,
+   "min": 0.5436261430989262,
+   "median": 0.7007361921524549,
+   "max": 1.064439185414489,
+   "within_2x": 1.0
+  }
+ },
+ "trials": [
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 0,
+   "estimates": {
+    "mean of 2^R": 35028.0,
+    "median of 2^R": 768.0,
+    "median of group means": 2616.0,
+    "mean of group medians": 1088.0,
+    "2^(mean R)": 1141.1320244181939,
+    "2^(mean R) x PHI": 882.6770322077172,
+    "median of group means x PHI": 2023.50216,
+    "harmonic mean of 2^R": 607.5152107690706
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 1,
+   "estimates": {
+    "mean of 2^R": 4186.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 3808.0,
+    "mean of group medians": 1296.0,
+    "2^(mean R)": 1217.7480857627863,
+    "2^(mean R) x PHI": 941.9403218183729,
+    "median of group means x PHI": 2945.52608,
+    "harmonic mean of 2^R": 647.1692640024687
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 2,
+   "estimates": {
+    "mean of 2^R": 2348.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 1512.0,
+    "mean of group medians": 848.0,
+    "2^(mean R)": 928.8971138562042,
+    "2^(mean R) x PHI": 718.5112065389126,
+    "median of group means x PHI": 1169.54712,
+    "harmonic mean of 2^R": 556.8645778013807
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 3,
+   "estimates": {
+    "mean of 2^R": 3900.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2648.0,
+    "mean of group medians": 1792.0,
+    "2^(mean R)": 1244.4132966200002,
+    "2^(mean R) x PHI": 962.5661290685364,
+    "median of group means x PHI": 2048.25448,
+    "harmonic mean of 2^R": 653.0132336914214
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 4,
+   "estimates": {
+    "mean of 2^R": 10794.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2352.0,
+    "mean of group medians": 2128.0,
+    "2^(mean R)": 1479.8651463444958,
+    "2^(mean R) x PHI": 1144.690489348931,
+    "median of group means x PHI": 1819.2955200000001,
+    "harmonic mean of 2^R": 754.3542636181741
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 5,
+   "estimates": {
+    "mean of 2^R": 7702.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2632.0,
+    "mean of group medians": 928.0,
+    "2^(mean R)": 1153.5581374548397,
+    "2^(mean R) x PHI": 892.2887549026931,
+    "median of group means x PHI": 2035.87832,
+    "harmonic mean of 2^R": 529.3666109235478
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 6,
+   "estimates": {
+    "mean of 2^R": 3638.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2736.0,
+    "mean of group medians": 1312.0,
+    "2^(mean R)": 1191.6542553882393,
+    "2^(mean R) x PHI": 921.756483085357,
+    "median of group means x PHI": 2116.32336,
+    "harmonic mean of 2^R": 688.8329775004106
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 7,
+   "estimates": {
+    "mean of 2^R": 2718.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2448.0,
+    "mean of group medians": 992.0,
+    "2^(mean R)": 1128.839765307229,
+    "2^(mean R) x PHI": 873.1688468627948,
+    "median of group means x PHI": 1893.55248,
+    "harmonic mean of 2^R": 661.3535162409335
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 8,
+   "estimates": {
+    "mean of 2^R": 3262.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2120.0,
+    "mean of group medians": 1056.0,
+    "2^(mean R)": 1141.1320244181939,
+    "2^(mean R) x PHI": 882.6770322077172,
+    "median of group means x PHI": 1639.8412,
+    "harmonic mean of 2^R": 643.0022995554193
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 9,
+   "estimates": {
+    "mean of 2^R": 7014.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 3224.0,
+    "mean of group medians": 912.0,
+    "2^(mean R)": 1244.4132966200002,
+    "2^(mean R) x PHI": 962.5661290685364,
+    "median of group means x PHI": 2493.79624,
+    "harmonic mean of 2^R": 641.1103213726165
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 10,
+   "estimates": {
+    "mean of 2^R": 2394.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2240.0,
+    "mean of group medians": 1088.0,
+    "2^(mean R)": 1191.6542553882393,
+    "2^(mean R) x PHI": 921.756483085357,
+    "median of group means x PHI": 1732.6624000000002,
+    "harmonic mean of 2^R": 735.8428070175438
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 11,
+   "estimates": {
+    "mean of 2^R": 2156.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2016.0,
+    "mean of group medians": 1184.0,
+    "2^(mean R)": 1141.1320244181939,
+    "2^(mean R) x PHI": 882.6770322077172,
+    "median of group means x PHI": 1559.39616,
+    "harmonic mean of 2^R": 727.1678224687934
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 12,
+   "estimates": {
+    "mean of 2^R": 35774.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2528.0,
+    "mean of group medians": 1200.0,
+    "2^(mean R)": 1231.008493007568,
+    "2^(mean R) x PHI": 952.1973794262839,
+    "median of group means x PHI": 1955.43328,
+    "harmonic mean of 2^R": 582.7825188337205
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 13,
+   "estimates": {
+    "mean of 2^R": 5030.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 1840.0,
+    "mean of group medians": 1168.0,
+    "2^(mean R)": 1116.6799182492239,
+    "2^(mean R) x PHI": 863.7630835649572,
+    "median of group means x PHI": 1423.2584000000002,
+    "harmonic mean of 2^R": 520.8697919900652
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 14,
+   "estimates": {
+    "mean of 2^R": 8708.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 6000.0,
+    "mean of group medians": 1184.0,
+    "2^(mean R)": 1432.5551846792307,
+    "2^(mean R) x PHI": 1108.0957609012319,
+    "median of group means x PHI": 4641.06,
+    "harmonic mean of 2^R": 624.5241215008934
+   }
+  },
+  {
+   "distinct": 1000,
+   "true": 940,
+   "seed": 15,
+   "estimates": {
+    "mean of 2^R": 3394.0,
+    "median of 2^R": 1024.0,
+    "median of group means": 2432.0,
+    "mean of group medians": 1632.0,
+    "2^(mean R)": 1271.6623995632476,
+    "2^(mean R) x PHI": 983.6435826861677,
+    "median of group means x PHI": 1881.17632,
+    "harmonic mean of 2^R": 739.6057132780815
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 0,
+   "estimates": {
+    "mean of 2^R": 150752.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 56320.0,
+    "mean of group medians": 22528.0,
+    "2^(mean R)": 25267.5821634837,
+    "2^(mean R) x PHI": 19544.72747927628,
+    "median of group means x PHI": 43564.0832,
+    "harmonic mean of 2^R": 11525.286848997466
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 1,
+   "estimates": {
+    "mean of 2^R": 84480.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 31488.0,
+    "mean of group medians": 23296.0,
+    "2^(mean R)": 21478.78848962174,
+    "2^(mean R) x PHI": 16614.057684607313,
+    "median of group means x PHI": 24356.282880000002,
+    "harmonic mean of 2^R": 10898.719285424278
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 2,
+   "estimates": {
+    "mean of 2^R": 91392.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 83456.0,
+    "mean of group medians": 29184.0,
+    "2^(mean R)": 27854.54249932429,
+    "2^(mean R) x PHI": 21545.76716865233,
+    "median of group means x PHI": 64554.05056,
+    "harmonic mean of 2^R": 13299.41815299247
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 3,
+   "estimates": {
+    "mean of 2^R": 203456.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 26624.0,
+    "mean of group medians": 25088.0,
+    "2^(mean R)": 24196.319575072757,
+    "2^(mean R) x PHI": 18716.09515451453,
+    "median of group means x PHI": 20593.93024,
+    "harmonic mean of 2^R": 13131.244025926379
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 4,
+   "estimates": {
+    "mean of 2^R": 569440.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 127232.0,
+    "mean of group medians": 25088.0,
+    "2^(mean R)": 35733.757383975164,
+    "2^(mean R) x PHI": 27640.41867407863,
+    "median of group means x PHI": 98415.22432000001,
+    "harmonic mean of 2^R": 13897.231844479245
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 5,
+   "estimates": {
+    "mean of 2^R": 104576.0,
+    "median of 2^R": 32768.0,
+    "median of group means": 105984.0,
+    "mean of group medians": 36864.0,
+    "2^(mean R)": 32415.023536340188,
+    "2^(mean R) x PHI": 25073.3448555945,
+    "median of group means x PHI": 81979.68384,
+    "harmonic mean of 2^R": 16549.65819975339
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 6,
+   "estimates": {
+    "mean of 2^R": 579904.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 56064.0,
+    "mean of group medians": 20992.0,
+    "2^(mean R)": 25542.72809349672,
+    "2^(mean R) x PHI": 19757.55560760065,
+    "median of group means x PHI": 43366.064640000004,
+    "harmonic mean of 2^R": 13429.494759486704
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 7,
+   "estimates": {
+    "mean of 2^R": 32256.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 29184.0,
+    "mean of group medians": 15872.0,
+    "2^(mean R)": 18258.1123906911,
+    "2^(mean R) x PHI": 14122.832515323475,
+    "median of group means x PHI": 22574.115840000002,
+    "harmonic mean of 2^R": 12078.629229661627
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 8,
+   "estimates": {
+    "mean of 2^R": 59136.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 40448.0,
+    "mean of group medians": 22016.0,
+    "2^(mean R)": 21949.112714089315,
+    "2^(mean R) x PHI": 16977.858175475227,
+    "median of group means x PHI": 31286.93248,
+    "harmonic mean of 2^R": 12900.589004229143
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 9,
+   "estimates": {
+    "mean of 2^R": 34752.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 26880.0,
+    "mean of group medians": 17920.0,
+    "2^(mean R)": 19483.96937220458,
+    "2^(mean R) x PHI": 15071.045149093967,
+    "median of group means x PHI": 20791.948800000002,
+    "harmonic mean of 2^R": 12710.012121212121
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 10,
+   "estimates": {
+    "mean of 2^R": 82400.0,
+    "median of 2^R": 24576.0,
+    "median of group means": 50688.0,
+    "mean of group medians": 24064.0,
+    "2^(mean R)": 25542.72809349672,
+    "2^(mean R) x PHI": 19757.55560760065,
+    "median of group means x PHI": 39207.67488,
+    "harmonic mean of 2^R": 13282.308560118752
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 11,
+   "estimates": {
+    "mean of 2^R": 71616.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 67072.0,
+    "mean of group medians": 32768.0,
+    "2^(mean R)": 25820.870166247612,
+    "2^(mean R) x PHI": 19972.70128229419,
+    "median of group means x PHI": 51880.862720000005,
+    "harmonic mean of 2^R": 13911.456053067994
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 12,
+   "estimates": {
+    "mean of 2^R": 60384.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 31744.0,
+    "mean of group medians": 14336.0,
+    "2^(mean R)": 16742.762883549047,
+    "2^(mean R) x PHI": 12950.694518054024,
+    "median of group means x PHI": 24554.30144,
+    "harmonic mean of 2^R": 10310.957056157333
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 13,
+   "estimates": {
+    "mean of 2^R": 61184.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 33024.0,
+    "mean of group medians": 25088.0,
+    "2^(mean R)": 22920.88295486769,
+    "2^(mean R) x PHI": 17729.53217441971,
+    "median of group means x PHI": 25544.39424,
+    "harmonic mean of 2^R": 13966.464932362123
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 14,
+   "estimates": {
+    "mean of 2^R": 52544.0,
+    "median of 2^R": 32768.0,
+    "median of group means": 47616.0,
+    "mean of group medians": 30208.0,
+    "2^(mean R)": 27854.54249932429,
+    "2^(mean R) x PHI": 21545.76716865233,
+    "median of group means x PHI": 36831.45216,
+    "harmonic mean of 2^R": 15635.802423112767
+   }
+  },
+  {
+   "distinct": 20000,
+   "true": 18967,
+   "seed": 15,
+   "estimates": {
+    "mean of 2^R": 94208.0,
+    "median of 2^R": 16384.0,
+    "median of group means": 25600.0,
+    "mean of group medians": 24064.0,
+    "2^(mean R)": 19696.135888121087,
+    "2^(mean R) x PHI": 15235.158070820542,
+    "median of group means x PHI": 19801.856,
+    "harmonic mean of 2^R": 13335.75716627751
+   }
+  },
+  {
+   "distinct": 100000,
+   "true": 94967,
+   "seed": 0,
+   "estimates": {
+    "mean of 2^R": 322048.0,
+    "median of 2^R": 98304.0,
+    "median of group means": 204800.0,
+    "mean of group medians": 108544.0,
+    "2^(mean R)": 120193.55395092267,
+    "2^(mean R) x PHI": 92970.91591657819,
+    "median of group means x PHI": 158414.848,
+    "harmonic mean of 2^R": 70939.60253699789
+   }
+  },
+  {
+   "distinct": 100000,
+   "true": 94967,
+   "seed": 1,
+   "estimates": {
+    "mean of 2^R": 303616.0,
+    "median of 2^R": 65536.0,
+    "median of group means": 169984.0,
+    "mean of group medians": 96256.0,
+    "2^(mean R)": 98904.59992676256,
+    "2^(mean R) x PHI": 76503.69708935011,
+    "median of group means x PHI": 131484.32384,
+    "harmonic mean of 2^R": 60835.230821529745
+   }
+  },
+  {
+   "distinct": 100000,
+   "true": 94967,
+   "seed": 2,
+   "estimates": {
+    "mean of 2^R": 289024.0,
+    "median of 2^R": 65536.0,
+    "median of group means": 266752.0,
+    "mean of group medians": 102400.0,
+    "2^(mean R)": 110217.97494013487,
+    "2^(mean R) x PHI": 85254.70579594372,
+    "median of group means x PHI": 206335.33952,
+    "harmonic mean of 2^R": 55982.368300312824
+   }
+  },
+  {
+   "distinct": 100000,
+   "true": 94967,
+   "seed": 3,
+   "estimates": {
+    "mean of 2^R": 431616.0,
+    "median of 2^R": 131072.0,
+    "median of group means": 198656.0,
+    "mean of group medians": 110592.0,
+    "2^(mean R)": 125514.97720772345,
+    "2^(mean R) x PHI": 97087.09001994618,
+    "median of group means x PHI": 153662.40256000002,
+    "harmonic mean of 2^R": 71155.85314777998
+   }
+  },
+  {
+   "distinct": 100000,
+   "true": 94967,
+   "seed": 4,
+   "estimates": {
+    "mean of 2^R": 594176.0,
+    "median of 2^R": 131072.0,
+    "median of group means": 562176.0,
+    "mean of group medians": 225280.0,
+    "2^(mean R)": 208816.32806073362,
+    "2^(mean R) x PHI": 161521.51791825806,
+    "median of group means x PHI": 434848.75776,
+    "harmonic mean of 2^R": 101086.59612125777
+   }
+  },
+  {
+   "distinct": 100000,
+   "true": 94967,
+   "seed": 5,
+   "estimates": {
+    "mean of 2^R": 283136.0,
+    "median of 2^R": 131072.0,
+    "median of group means": 286720.0,
+    "mean of group medians": 153600.0,
+    "2^(mean R)": 126881.745698311,
+    "2^(mean R) x PHI": 98144.29911510054,
+    "median of group means x PHI": 221780.78720000002,
+    "harmonic mean of 2^R": 71089.89830508475
+   }
+  },
+  {
+   "distinct": 100000,
+   "true": 94967,
+   "seed": 6,
+   "estimates": {
+    "mean of 2^R": 690176.0,
+    "median of 2^R": 65536.0,
+    "median of group means": 172032.0,
+    "mean of group medians": 126976.0,
+    "2^(mean R)": 113857.91022849761,
+    "2^(mean R) x PHI": 88070.2321408452,
+    "median of group means x PHI": 133068.47232,
+    "harmonic mean of 2^R": 70115.04662400419
+   }
+  },
+  {
+   "distinct": 100000,
+   "true": 94967,
+   "seed": 7,
+   "estimates": {
+    "mean of 2^R": 378112.0,
+    "median of 2^R": 131072.0,
+    "median of group means": 176128.0,
+    "mean of group medians": 104448.0,
+    "2^(mean R)": 117618.05393940363,
+    "2^(mean R) x PHI": 90978.74090266811,
+    "median of group means x PHI": 136236.76928,
+    "harmonic mean of 2^R": 71193.59660522477
+   }
+  }
+ ]
+}
