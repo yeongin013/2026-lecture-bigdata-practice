@@ -86,7 +86,7 @@ git checkout upstream/main -- w06-apriori
 | `w03-lsh/task2_extend.py` | `w03-lsh/out/crossover_ext.json` | 2,120개 천장 너머의 A2 |
 | `w04-stream/task1_fm_rules.py` | `w04-stream/out/fm_rules.json` | FM 결합 규칙 40회 비교 |
 | `w04-stream/task2_exact_only.py` | `w04-stream/out/limits_exact_only.json` | FM 없이 exact 만 잰 A2 두 점 |
-| `w05-pagerank/task2_why.py` | `w05-pagerank/out/convergence_why.json` | 수렴이 βᵏ 보다 빠른 이유 (실제 수렴 속도) |
+| `w05-pagerank/task2_why.py` | `w05-pagerank/out/convergence_why.json` | 수렴이 βᵏ 보다 빠른 이유 (실제 수렴 속도), 상위 100위 비교 |
 
 커밋 기록 한 가지: `1477b98` 은 메시지가 ".gitignore" 뿐이지만, 실제로는 `w04-stream/` 의 원본
 파일 9개를 upstream 에서 복원한 것도 함께 들어갔다. 복원된 내용은 upstream 과 바이트 단위로 같다.
@@ -129,6 +129,6 @@ n 에 선형이라 n = 102.4M 이면 약 1.8시간이다. 그건 exact 의 한�
 ## w05 측정에서 알게 된 것
 
 **β = 0.99 에서도 24회만에 수렴했다.** 교과서의 βᵏ 로는 2,291회가 필요하다고 예측했는데 틀렸다.
-5,000회 돌린 답과의 차이가 2e-11 이하라 가짜 수렴도 아니다. 연속 변화량의 비로 잰 실제 수렴
-속도는 다섯 β 모두에서 β × 0.27 이었다 — βᵏ 는 상한이고, 이 그래프는 링크 구조가 빨리 섞여서
+5,000회 돌린 답과의 차이가 2e-11 이하라 가짜 수렴도 아니다. 실제 수렴 속도는 초반(반복 5 ~ 12)
+β × 0.27, 후반(반복 17 이후) β × 0.43 이었다 — βᵏ 는 상한이고, 이 그래프는 링크 구조가 빨리 섞여서
 β 의 영향이 로그로만 들어온다. 재현은 `w05-pagerank/task2_why.py`.

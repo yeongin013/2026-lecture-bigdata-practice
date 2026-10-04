@@ -9,6 +9,9 @@
       "iterations": 14,
       "l1_error_vs_5000": 3.467305110561869e-12,
       "observed_rate": 0.1344547797147417,
+      "late_rate": null,
+      "top100_same_set_as_085": false,
+      "top100_positions_changed_vs_085": 77,
       "beta_to_the_k_would_need": 33.219280948873624,
       "trap_rank_stopped": 0.0016798167868568208,
       "trap_rank_reference": 0.0016798167868568472
@@ -18,6 +21,9 @@
       "iterations": 17,
       "l1_error_vs_5000": 1.2747930261316348e-11,
       "observed_rate": 0.18823669156958833,
+      "late_rate": 0.3060300564062146,
+      "top100_same_set_as_085": true,
+      "top100_positions_changed_vs_085": 71,
       "beta_to_the_k_would_need": 64.55696235812881,
       "trap_rank_stopped": 0.0016890369031495826,
       "trap_rank_reference": 0.001689036903149609
@@ -27,6 +33,9 @@
       "iterations": 20,
       "l1_error_vs_5000": 1.9834997901958806e-11,
       "observed_rate": 0.22857312547286282,
+      "late_rate": 0.3681211969470461,
+      "top100_same_set_as_085": true,
+      "top100_positions_changed_vs_085": 0,
       "beta_to_the_k_would_need": 141.6810398708398,
       "trap_rank_stopped": 0.0016981676821545913,
       "trap_rank_reference": 0.0016981676821546008
@@ -36,6 +45,9 @@
       "iterations": 23,
       "l1_error_vs_5000": 1.3805724385961352e-11,
       "observed_rate": 0.255464081408154,
+      "late_rate": 0.4097484959835254,
+      "top100_same_set_as_085": false,
+      "top100_positions_changed_vs_085": 56,
       "beta_to_the_k_would_need": 448.90567480354844,
       "trap_rank_stopped": 0.0017055503352102915,
       "trap_rank_reference": 0.0017055503352102928
@@ -45,6 +57,9 @@
       "iterations": 24,
       "l1_error_vs_5000": 1.5621095320660712e-11,
       "observed_rate": 0.2662204637835682,
+      "late_rate": 0.4284776801289001,
+      "top100_same_set_as_085": false,
+      "top100_positions_changed_vs_085": 64,
       "beta_to_the_k_would_need": 2291.0528827669423,
       "trap_rank_stopped": 0.0017088337646502289,
       "trap_rank_reference": 0.00170883376465023
