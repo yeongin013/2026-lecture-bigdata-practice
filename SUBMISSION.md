@@ -17,7 +17,7 @@ git fetch upstream          # 원본이 갱신되면 받아올 수 있다
 | w03-lsh | 완료 | 완료 | **strong** | `w03-lsh/out/` |
 | w04-stream | 완료 | 완료 | **strong** | `w04-stream/out/` |
 | w05-pagerank | 완료 | 완료 | **strong** | `w05-pagerank/out/` |
-| w06-apriori | — | — | — | — |
+| w06-apriori | 완료 | 완료 | **strong** | `w06-apriori/out/` |
 | w07-kmeans | — | — | — | — |
 
 선택 과제(w02, w05 task4, w06 task4)는 Spark이 필요하다. 채점 대상이 아니라 진행하지 않았다.
@@ -34,7 +34,7 @@ git fetch upstream          # 원본이 갱신되면 받아올 수 있다
 | w03-lsh | `w03-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w03-submit/w03-lsh |
 | w04-stream | `w04-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w04-submit/w04-stream |
 | w05-pagerank | `w05-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w05-submit/w05-pagerank |
-| w06-apriori | `w06-submit` | 예정 |
+| w06-apriori | `w06-submit` | https://github.com/yeongin013/2026-lecture-bigdata-practice/tree/w06-submit/w06-apriori |
 | w07-kmeans | `w07-submit` | 예정 |
 
 새 주차를 제출할 때 쓰는 명령:
@@ -56,14 +56,15 @@ git push origin main wNN-submit
 | `w03-lsh/` | 제출 완료 |
 | `w04-stream/` | 제출 완료 |
 | `w05-pagerank/` | 제출 완료 (선택 과제 Task 4 파일은 원본 그대로 포함) |
+| `w06-apriori/` | 제출 완료 (선택 과제 Task 4 파일은 원본 그대로 포함) |
 | 루트 공용 파일 | `README.md` `check.py` `Makefile` `Dockerfile` `requirements.txt` `.devcontainer/` — 주차별 파일이 아니고, 각 주차 README가 `python3 ../check.py wNN`을 실행하라고 하므로 남겨둔다 |
-| w02 · w06 · w07 | 아직 시작하지 않아 트리에서 제외 |
+| w02 · w07 | 아직 시작하지 않아 트리에서 제외 |
 
 빠진 주차의 원본은 지워진 것이 아니라 `upstream`에 그대로 있다. 시작할 때 가져온다:
 
 ```bash
 git fetch upstream
-git checkout upstream/main -- w06-apriori
+git checkout upstream/main -- w07-kmeans
 ```
 
 ## 원본에서 바꾼 것
@@ -77,9 +78,9 @@ git checkout upstream/main -- w06-apriori
 원본은 학생 결과물인 `*/out/`을 추적하지 않는다. 제출용 레포에서는 `out/`이 곧 제출물이므로
 추적 대상으로 바꿨다.
 
-수정 금지 파일인 `bench.py`, 그리고 실행만 하면 되는 `task2_crossover.py`는 **원본 그대로다.**
+수정 금지 파일인 `bench.py`, 그리고 실행만 하면 되는 `task2_crossover.py`, `task2_explosion.py`는 **원본 그대로다.**
 
-새로 추가한 스크립트는 넷이고, 모두 제공 파일을 고치지 않고 추가 측정을 재현하기 위한 것이다.
+새로 추가한 스크립트는 다섯이고, 모두 제공 파일을 고치지 않고 추가 측정을 재현하기 위한 것이다.
 
 | 파일 | 원자료 | 용도 |
 |---|---|---|
@@ -87,6 +88,7 @@ git checkout upstream/main -- w06-apriori
 | `w04-stream/task1_fm_rules.py` | `w04-stream/out/fm_rules.json` | FM 결합 규칙 40회 비교 |
 | `w04-stream/task2_exact_only.py` | `w04-stream/out/limits_exact_only.json` | FM 없이 exact 만 잰 A2 두 점 |
 | `w05-pagerank/task2_why.py` | `w05-pagerank/out/convergence_why.json` | 수렴이 βᵏ 보다 빠른 이유 (실제 수렴 속도), 상위 100위 비교 |
+| `w06-apriori/task3_buckets.py` | `w06-apriori/out/pcy_buckets.json` | PCY 버킷 수와 데이터 크기를 바꿔 잰 R5 |
 
 커밋 기록 한 가지: `1477b98` 은 메시지가 ".gitignore" 뿐이지만, 실제로는 `w04-stream/` 의 원본
 파일 9개를 upstream 에서 복원한 것도 함께 들어갔다. 복원된 내용은 upstream 과 바이트 단위로 같다.
@@ -132,3 +134,13 @@ n 에 선형이라 n = 102.4M 이면 약 1.8시간이다. 그건 exact 의 한�
 5,000회 돌린 답과의 차이가 2e-11 이하라 가짜 수렴도 아니다. 실제 수렴 속도는 초반(반복 5 ~ 12)
 β × 0.27, 후반(반복 17 이후) β × 0.43 이었다 — βᵏ 는 상한이고, 이 그래프는 링크 구조가 빨리 섞여서
 β 의 영향이 로그로만 들어온다. 재현은 `w05-pagerank/task2_why.py`.
+
+## w06 측정에서 알게 된 것
+
+**제공된 데이터는 support 를 끝까지 내려도 터지지 않았다.** 카운터가 support 25 부터 893,456 에서
+멈췄다 — 데이터에 한 번이라도 나온 쌍 전부다. support 1 에서 2.28초, 334 MB 였다. Task 2 는 제공된
+데이터로만 쟀고, 데이터를 키워 한계를 찾지는 않았다.
+
+**PCY 의 버킷 배열은 고정 비용이 아니었다.** 버킷 500,009개를 그대로 두고 데이터를 8배로 키우자
+cut 이 97.3% 에서 52.4% 로 떨어졌다. 버킷당 평균이 support 를 넘으면 필터가 죽었다. 재현은
+`task3_buckets.py`, 자세한 건 `w06-apriori/out/observation.md`.

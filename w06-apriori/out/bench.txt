@@ -1,0 +1,12 @@
+$ python3 bench.py --yours
+
+  20,000 baskets, 2,000 items, support 50
+
+  baseline     pairs  6397   peak counters    820,259     1.08s   -
+  yours        pairs  6397   peak counters     21,783     0.71s   missing 0, extra 0
+
+   ok    same frequent pairs
+   peak counters cut by 97.3%  (21,783 from 820,259)
+
+   -> strong
+
